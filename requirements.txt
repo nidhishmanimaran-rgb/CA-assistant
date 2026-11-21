@@ -1,0 +1,2 @@
+# Phase 1 runtime. Python 3.11 is the tested interpreter.
+streamlit==1.67.0

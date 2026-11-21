@@ -1,0 +1,37 @@
+# Python and local tools
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Credentials: keep only examples
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+
+# Private study material, generated data, and chat exports
+*.pdf
+*.PDF
+knowledge_base/*
+!knowledge_base/README.md
+data/
+uploads/
+logs/
+exports/
+ca-chat-*.json
+ca-issue-*.json
+*.sqlite*
+*.db
+
+# Local machine files
+.DS_Store
+Thumbs.db
+*.log
