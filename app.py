@@ -11,6 +11,7 @@ from backend.errors import AppError
 from ui.runtime import settings as load_app_settings, access_gate, runtime, ledger
 from ui.library import render_library
 from ui.calculations import render_calculator
+from ui.daily_practice import render_daily_practice
 from config.catalog import (
     ANSWER_FORMATS,
     APP_TITLE,
@@ -37,7 +38,7 @@ st.markdown(
                font-size: 1.15rem; font-weight: 750; letter-spacing: -.04em; }
     .ca-brand strong { font-size: 1.15rem; }
     .ca-brand small { display: block; font-size: .85rem; opacity: .7; margin-top: .15rem; }
-    .ca-hero { background: linear-gradient(115deg, #102b46, #134e55); color: #fff;
+    .ca-hero { background: linear-gradient(115deg, #173b38, #315b56); color: #fff;
                border-radius: 20px; padding: 2rem 2.2rem; margin: .5rem 0 1.5rem; }
     .ca-eyebrow { font-size: .8rem; letter-spacing: .13em; font-weight: 700;
                   text-transform: uppercase; color: #a7f3d0; margin-bottom: .8rem; }
@@ -351,11 +352,14 @@ def main() -> None:
         'Starting with CA Intermediate Advanced Accounting.</p></div>',
         unsafe_allow_html=True,
     )
+    st.caption('Build a little consistency every day: 20 short questions, clear concepts, steady progress.')
     status, history, focus = st.columns(3)
     status.metric("Workspace", "CA tutor")
     history.metric("Questions in session", len(st.session_state.messages) // 2)
     focus.metric("AI connection", "Configured" if configuration.api_enabled else "Not connected")
-    tutor, library, calculator_tab, guide = st.tabs(["Study chat", "Study library", "Calculations", "Project guide"])
+    practice, tutor, library, calculator_tab, guide = st.tabs(["Daily 20 marks", "Study chat", "Study library", "Calculations", "Project guide"])
+    with practice:
+        render_daily_practice()
     with tutor:
         tutor_tab(context)
     with library:

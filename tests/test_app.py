@@ -41,7 +41,7 @@ def test_level_and_subject_changes_reset_dependent_controls():
     app = start_app()
     app.selectbox(key="subject").set_value("Taxation").run()
     assert not app.exception
-    assert app.selectbox(key="chapter").value == "Subject preview — available later"
+    assert app.selectbox(key="chapter").value == "Income-tax overview"
     assert app.button(key="worked_example").disabled
     app.selectbox(key="level").set_value("CA Final").run()
     assert not app.exception
@@ -95,3 +95,9 @@ def test_issue_reporting_requires_description():
     next(button for button in app.button if button.label == "Save issue locally").click().run()
     assert not app.exception
     assert len(app.session_state["issues"]) == 1
+
+
+def test_daily_quiz_screen_is_visible():
+    app = start_app()
+    assert any("Daily 20 marks" in tab.label for tab in app.get("tab"))
+    assert any("Your daily 20-minute practice" in element.value for element in app.get("subheader"))
