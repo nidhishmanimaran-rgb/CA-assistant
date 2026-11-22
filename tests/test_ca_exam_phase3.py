@@ -2,7 +2,7 @@ import json
 import re
 from decimal import Decimal
 from pathlib import Path
-from ca_exam_phase3 import example, generate, TRAIN_FAMILIES, TEST_FAMILIES
+from training.ca_exam_phase3 import example, generate, TRAIN_FAMILIES, TEST_FAMILIES
 import random
 
 
