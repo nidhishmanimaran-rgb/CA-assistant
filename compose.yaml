@@ -1,0 +1,22 @@
+services:
+  ca-assistant:
+    build: .
+    ports:
+      - "127.0.0.1:8501:8501"
+    env_file:
+      - .env
+    environment:
+      REQUIRE_PASSWORD: "true"
+      DATA_DIR: /app/data
+    volumes:
+      - ca-data:/app/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+volumes:
+  ca-data:

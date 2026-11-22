@@ -1,0 +1,1402 @@
+[
+  {
+    "id": "N001",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_full",
+    "question": "Compute straight-line depreciation for 12 months: cost 850000, residual value 50000, useful life 8 years.",
+    "inputs": {
+      "cost": "850000",
+      "residual": "50000",
+      "life": "8",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "100000.00",
+      "depreciation": "100000.00",
+      "closing": "750000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N002",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 6 months: cost 850000, residual value 50000, useful life 8 years.",
+    "inputs": {
+      "cost": "850000",
+      "residual": "50000",
+      "life": "8",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "100000.00",
+      "depreciation": "50000.00",
+      "closing": "800000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N003",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 3 months: cost 850000, residual value 50000, useful life 8 years.",
+    "inputs": {
+      "cost": "850000",
+      "residual": "50000",
+      "life": "8",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "100000.00",
+      "depreciation": "25000.00",
+      "closing": "825000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N004",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_full",
+    "question": "Compute straight-line depreciation for 12 months: cost 100000, residual value 10000, useful life 5 years.",
+    "inputs": {
+      "cost": "100000",
+      "residual": "10000",
+      "life": "5",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "18000.00",
+      "depreciation": "18000.00",
+      "closing": "82000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N005",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 6 months: cost 100000, residual value 10000, useful life 5 years.",
+    "inputs": {
+      "cost": "100000",
+      "residual": "10000",
+      "life": "5",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "18000.00",
+      "depreciation": "9000.00",
+      "closing": "91000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N006",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 3 months: cost 100000, residual value 10000, useful life 5 years.",
+    "inputs": {
+      "cost": "100000",
+      "residual": "10000",
+      "life": "5",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "18000.00",
+      "depreciation": "4500.00",
+      "closing": "95500.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N007",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_full",
+    "question": "Compute straight-line depreciation for 12 months: cost 240000, residual value 0, useful life 6 years.",
+    "inputs": {
+      "cost": "240000",
+      "residual": "0",
+      "life": "6",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "40000.00",
+      "depreciation": "40000.00",
+      "closing": "200000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N008",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 6 months: cost 240000, residual value 0, useful life 6 years.",
+    "inputs": {
+      "cost": "240000",
+      "residual": "0",
+      "life": "6",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "40000.00",
+      "depreciation": "20000.00",
+      "closing": "220000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N009",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 3 months: cost 240000, residual value 0, useful life 6 years.",
+    "inputs": {
+      "cost": "240000",
+      "residual": "0",
+      "life": "6",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "40000.00",
+      "depreciation": "10000.00",
+      "closing": "230000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N010",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_full",
+    "question": "Compute straight-line depreciation for 12 months: cost 135000, residual value 15000, useful life 4 years.",
+    "inputs": {
+      "cost": "135000",
+      "residual": "15000",
+      "life": "4",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "30000.00",
+      "depreciation": "30000.00",
+      "closing": "105000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N011",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 6 months: cost 135000, residual value 15000, useful life 4 years.",
+    "inputs": {
+      "cost": "135000",
+      "residual": "15000",
+      "life": "4",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "30000.00",
+      "depreciation": "15000.00",
+      "closing": "120000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N012",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 3 months: cost 135000, residual value 15000, useful life 4 years.",
+    "inputs": {
+      "cost": "135000",
+      "residual": "15000",
+      "life": "4",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "30000.00",
+      "depreciation": "7500.00",
+      "closing": "127500.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N013",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_full",
+    "question": "Compute straight-line depreciation for 12 months: cost 99999, residual value 999, useful life 3 years.",
+    "inputs": {
+      "cost": "99999",
+      "residual": "999",
+      "life": "3",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "33000.00",
+      "depreciation": "33000.00",
+      "closing": "66999.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N014",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 6 months: cost 99999, residual value 999, useful life 3 years.",
+    "inputs": {
+      "cost": "99999",
+      "residual": "999",
+      "life": "3",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "33000.00",
+      "depreciation": "16500.00",
+      "closing": "83499.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N015",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 3 months: cost 99999, residual value 999, useful life 3 years.",
+    "inputs": {
+      "cost": "99999",
+      "residual": "999",
+      "life": "3",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "33000.00",
+      "depreciation": "8250.00",
+      "closing": "91749.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N016",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_full",
+    "question": "Compute straight-line depreciation for 12 months: cost 50000, residual value 5000, useful life 10 years.",
+    "inputs": {
+      "cost": "50000",
+      "residual": "5000",
+      "life": "10",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "4500.00",
+      "depreciation": "4500.00",
+      "closing": "45500.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N017",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 6 months: cost 50000, residual value 5000, useful life 10 years.",
+    "inputs": {
+      "cost": "50000",
+      "residual": "5000",
+      "life": "10",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "4500.00",
+      "depreciation": "2250.00",
+      "closing": "47750.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N018",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 3 months: cost 50000, residual value 5000, useful life 10 years.",
+    "inputs": {
+      "cost": "50000",
+      "residual": "5000",
+      "life": "10",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "4500.00",
+      "depreciation": "1125.00",
+      "closing": "48875.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N019",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_full",
+    "question": "Compute straight-line depreciation for 12 months: cost 720000, residual value 120000, useful life 12 years.",
+    "inputs": {
+      "cost": "720000",
+      "residual": "120000",
+      "life": "12",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "50000.00",
+      "depreciation": "50000.00",
+      "closing": "670000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N020",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 6 months: cost 720000, residual value 120000, useful life 12 years.",
+    "inputs": {
+      "cost": "720000",
+      "residual": "120000",
+      "life": "12",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "50000.00",
+      "depreciation": "25000.00",
+      "closing": "695000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N021",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 3 months: cost 720000, residual value 120000, useful life 12 years.",
+    "inputs": {
+      "cost": "720000",
+      "residual": "120000",
+      "life": "12",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "50000.00",
+      "depreciation": "12500.00",
+      "closing": "707500.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N022",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_full",
+    "question": "Compute straight-line depreciation for 12 months: cost 123456, residual value 3456, useful life 7 years.",
+    "inputs": {
+      "cost": "123456",
+      "residual": "3456",
+      "life": "7",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "17142.86",
+      "depreciation": "17142.86",
+      "closing": "106313.14"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N023",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 6 months: cost 123456, residual value 3456, useful life 7 years.",
+    "inputs": {
+      "cost": "123456",
+      "residual": "3456",
+      "life": "7",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "17142.86",
+      "depreciation": "8571.43",
+      "closing": "114884.57"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N024",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 3 months: cost 123456, residual value 3456, useful life 7 years.",
+    "inputs": {
+      "cost": "123456",
+      "residual": "3456",
+      "life": "7",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "17142.86",
+      "depreciation": "4285.71",
+      "closing": "119170.29"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N025",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_full",
+    "question": "Compute straight-line depreciation for 12 months: cost 1000, residual value 1000, useful life 5 years.",
+    "inputs": {
+      "cost": "1000",
+      "residual": "1000",
+      "life": "5",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "0.00",
+      "depreciation": "0.00",
+      "closing": "1000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N026",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 6 months: cost 1000, residual value 1000, useful life 5 years.",
+    "inputs": {
+      "cost": "1000",
+      "residual": "1000",
+      "life": "5",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "0.00",
+      "depreciation": "0.00",
+      "closing": "1000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N027",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 3 months: cost 1000, residual value 1000, useful life 5 years.",
+    "inputs": {
+      "cost": "1000",
+      "residual": "1000",
+      "life": "5",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "0.00",
+      "depreciation": "0.00",
+      "closing": "1000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N028",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_full",
+    "question": "Compute straight-line depreciation for 12 months: cost 100, residual value 0, useful life 3 years.",
+    "inputs": {
+      "cost": "100",
+      "residual": "0",
+      "life": "3",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "33.33",
+      "depreciation": "33.33",
+      "closing": "66.67"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N029",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 6 months: cost 100, residual value 0, useful life 3 years.",
+    "inputs": {
+      "cost": "100",
+      "residual": "0",
+      "life": "3",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "33.33",
+      "depreciation": "16.67",
+      "closing": "83.33"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N030",
+    "category": "numerical",
+    "method": "straight_line",
+    "scenario_family": "straight_line_partial",
+    "question": "Compute straight-line depreciation for 3 months: cost 100, residual value 0, useful life 3 years.",
+    "inputs": {
+      "cost": "100",
+      "residual": "0",
+      "life": "3",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "33.33",
+      "depreciation": "8.33",
+      "closing": "91.67"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N031",
+    "category": "numerical",
+    "method": "reducing_balance",
+    "scenario_family": "reducing_balance_full",
+    "question": "Compute reducing-balance depreciation for 12 months: opening carrying amount 100000, residual value 10000, annual rate 20%.",
+    "inputs": {
+      "opening": "100000",
+      "residual": "10000",
+      "rate": "20",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "20000.00",
+      "depreciation": "20000.00",
+      "closing": "80000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N032",
+    "category": "numerical",
+    "method": "reducing_balance",
+    "scenario_family": "reducing_balance_partial",
+    "question": "Compute reducing-balance depreciation for 6 months: opening carrying amount 100000, residual value 10000, annual rate 20%.",
+    "inputs": {
+      "opening": "100000",
+      "residual": "10000",
+      "rate": "20",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "20000.00",
+      "depreciation": "10000.00",
+      "closing": "90000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N033",
+    "category": "numerical",
+    "method": "reducing_balance",
+    "scenario_family": "reducing_balance_full",
+    "question": "Compute reducing-balance depreciation for 12 months: opening carrying amount 120000, residual value 110000, annual rate 25%.",
+    "inputs": {
+      "opening": "120000",
+      "residual": "110000",
+      "rate": "25",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "10000.00",
+      "depreciation": "10000.00",
+      "closing": "110000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N034",
+    "category": "numerical",
+    "method": "reducing_balance",
+    "scenario_family": "reducing_balance_partial",
+    "question": "Compute reducing-balance depreciation for 6 months: opening carrying amount 120000, residual value 110000, annual rate 25%.",
+    "inputs": {
+      "opening": "120000",
+      "residual": "110000",
+      "rate": "25",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "10000.00",
+      "depreciation": "10000.00",
+      "closing": "110000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N035",
+    "category": "numerical",
+    "method": "reducing_balance",
+    "scenario_family": "reducing_balance_full",
+    "question": "Compute reducing-balance depreciation for 12 months: opening carrying amount 850000, residual value 50000, annual rate 10%.",
+    "inputs": {
+      "opening": "850000",
+      "residual": "50000",
+      "rate": "10",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "85000.00",
+      "depreciation": "85000.00",
+      "closing": "765000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N036",
+    "category": "numerical",
+    "method": "reducing_balance",
+    "scenario_family": "reducing_balance_partial",
+    "question": "Compute reducing-balance depreciation for 6 months: opening carrying amount 850000, residual value 50000, annual rate 10%.",
+    "inputs": {
+      "opening": "850000",
+      "residual": "50000",
+      "rate": "10",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "85000.00",
+      "depreciation": "42500.00",
+      "closing": "807500.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N037",
+    "category": "numerical",
+    "method": "reducing_balance",
+    "scenario_family": "reducing_balance_full",
+    "question": "Compute reducing-balance depreciation for 12 months: opening carrying amount 1000, residual value 0, annual rate 100%.",
+    "inputs": {
+      "opening": "1000",
+      "residual": "0",
+      "rate": "100",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "1000.00",
+      "depreciation": "1000.00",
+      "closing": "0.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N038",
+    "category": "numerical",
+    "method": "reducing_balance",
+    "scenario_family": "reducing_balance_partial",
+    "question": "Compute reducing-balance depreciation for 6 months: opening carrying amount 1000, residual value 0, annual rate 100%.",
+    "inputs": {
+      "opening": "1000",
+      "residual": "0",
+      "rate": "100",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "1000.00",
+      "depreciation": "500.00",
+      "closing": "500.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N039",
+    "category": "numerical",
+    "method": "reducing_balance",
+    "scenario_family": "reducing_balance_full",
+    "question": "Compute reducing-balance depreciation for 12 months: opening carrying amount 12000, residual value 2000, annual rate 15%.",
+    "inputs": {
+      "opening": "12000",
+      "residual": "2000",
+      "rate": "15",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "1800.00",
+      "depreciation": "1800.00",
+      "closing": "10200.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N040",
+    "category": "numerical",
+    "method": "reducing_balance",
+    "scenario_family": "reducing_balance_partial",
+    "question": "Compute reducing-balance depreciation for 6 months: opening carrying amount 12000, residual value 2000, annual rate 15%.",
+    "inputs": {
+      "opening": "12000",
+      "residual": "2000",
+      "rate": "15",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "1800.00",
+      "depreciation": "900.00",
+      "closing": "11100.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N041",
+    "category": "numerical",
+    "method": "reducing_balance",
+    "scenario_family": "reducing_balance_full",
+    "question": "Compute reducing-balance depreciation for 12 months: opening carrying amount 99999, residual value 999, annual rate 12%.",
+    "inputs": {
+      "opening": "99999",
+      "residual": "999",
+      "rate": "12",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "11999.88",
+      "depreciation": "11999.88",
+      "closing": "87999.12"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N042",
+    "category": "numerical",
+    "method": "reducing_balance",
+    "scenario_family": "reducing_balance_partial",
+    "question": "Compute reducing-balance depreciation for 6 months: opening carrying amount 99999, residual value 999, annual rate 12%.",
+    "inputs": {
+      "opening": "99999",
+      "residual": "999",
+      "rate": "12",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "11999.88",
+      "depreciation": "5999.94",
+      "closing": "93999.06"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N043",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_full",
+    "question": "Compute revised-estimate depreciation for 12 months: carrying amount 450000, residual value 30000, remaining useful life 6 years.",
+    "inputs": {
+      "opening": "450000",
+      "residual": "30000",
+      "remaining_life": "6",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "70000.00",
+      "depreciation": "70000.00",
+      "closing": "380000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N044",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_partial",
+    "question": "Compute revised-estimate depreciation for 6 months: carrying amount 450000, residual value 30000, remaining useful life 6 years.",
+    "inputs": {
+      "opening": "450000",
+      "residual": "30000",
+      "remaining_life": "6",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "70000.00",
+      "depreciation": "35000.00",
+      "closing": "415000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N045",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_partial",
+    "question": "Compute revised-estimate depreciation for 3 months: carrying amount 450000, residual value 30000, remaining useful life 6 years.",
+    "inputs": {
+      "opening": "450000",
+      "residual": "30000",
+      "remaining_life": "6",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "70000.00",
+      "depreciation": "17500.00",
+      "closing": "432500.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N046",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_full",
+    "question": "Compute revised-estimate depreciation for 12 months: carrying amount 850000, residual value 50000, remaining useful life 8 years.",
+    "inputs": {
+      "opening": "850000",
+      "residual": "50000",
+      "remaining_life": "8",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "100000.00",
+      "depreciation": "100000.00",
+      "closing": "750000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N047",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_partial",
+    "question": "Compute revised-estimate depreciation for 6 months: carrying amount 850000, residual value 50000, remaining useful life 8 years.",
+    "inputs": {
+      "opening": "850000",
+      "residual": "50000",
+      "remaining_life": "8",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "100000.00",
+      "depreciation": "50000.00",
+      "closing": "800000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N048",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_partial",
+    "question": "Compute revised-estimate depreciation for 3 months: carrying amount 850000, residual value 50000, remaining useful life 8 years.",
+    "inputs": {
+      "opening": "850000",
+      "residual": "50000",
+      "remaining_life": "8",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "100000.00",
+      "depreciation": "25000.00",
+      "closing": "825000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N049",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_full",
+    "question": "Compute revised-estimate depreciation for 12 months: carrying amount 100000, residual value 10000, remaining useful life 3 years.",
+    "inputs": {
+      "opening": "100000",
+      "residual": "10000",
+      "remaining_life": "3",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "30000.00",
+      "depreciation": "30000.00",
+      "closing": "70000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N050",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_partial",
+    "question": "Compute revised-estimate depreciation for 6 months: carrying amount 100000, residual value 10000, remaining useful life 3 years.",
+    "inputs": {
+      "opening": "100000",
+      "residual": "10000",
+      "remaining_life": "3",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "30000.00",
+      "depreciation": "15000.00",
+      "closing": "85000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N051",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_partial",
+    "question": "Compute revised-estimate depreciation for 3 months: carrying amount 100000, residual value 10000, remaining useful life 3 years.",
+    "inputs": {
+      "opening": "100000",
+      "residual": "10000",
+      "remaining_life": "3",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "30000.00",
+      "depreciation": "7500.00",
+      "closing": "92500.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N052",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_full",
+    "question": "Compute revised-estimate depreciation for 12 months: carrying amount 240000, residual value 0, remaining useful life 4 years.",
+    "inputs": {
+      "opening": "240000",
+      "residual": "0",
+      "remaining_life": "4",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "60000.00",
+      "depreciation": "60000.00",
+      "closing": "180000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N053",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_partial",
+    "question": "Compute revised-estimate depreciation for 6 months: carrying amount 240000, residual value 0, remaining useful life 4 years.",
+    "inputs": {
+      "opening": "240000",
+      "residual": "0",
+      "remaining_life": "4",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "60000.00",
+      "depreciation": "30000.00",
+      "closing": "210000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N054",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_partial",
+    "question": "Compute revised-estimate depreciation for 3 months: carrying amount 240000, residual value 0, remaining useful life 4 years.",
+    "inputs": {
+      "opening": "240000",
+      "residual": "0",
+      "remaining_life": "4",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "60000.00",
+      "depreciation": "15000.00",
+      "closing": "225000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N055",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_full",
+    "question": "Compute revised-estimate depreciation for 12 months: carrying amount 99999, residual value 999, remaining useful life 5 years.",
+    "inputs": {
+      "opening": "99999",
+      "residual": "999",
+      "remaining_life": "5",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "19800.00",
+      "depreciation": "19800.00",
+      "closing": "80199.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N056",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_partial",
+    "question": "Compute revised-estimate depreciation for 6 months: carrying amount 99999, residual value 999, remaining useful life 5 years.",
+    "inputs": {
+      "opening": "99999",
+      "residual": "999",
+      "remaining_life": "5",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "19800.00",
+      "depreciation": "9900.00",
+      "closing": "90099.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N057",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_partial",
+    "question": "Compute revised-estimate depreciation for 3 months: carrying amount 99999, residual value 999, remaining useful life 5 years.",
+    "inputs": {
+      "opening": "99999",
+      "residual": "999",
+      "remaining_life": "5",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "19800.00",
+      "depreciation": "4950.00",
+      "closing": "95049.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N058",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_full",
+    "question": "Compute revised-estimate depreciation for 12 months: carrying amount 12000, residual value 2000, remaining useful life 2 years.",
+    "inputs": {
+      "opening": "12000",
+      "residual": "2000",
+      "remaining_life": "2",
+      "months": "12"
+    },
+    "expected": {
+      "annual": "5000.00",
+      "depreciation": "5000.00",
+      "closing": "7000.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N059",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_partial",
+    "question": "Compute revised-estimate depreciation for 6 months: carrying amount 12000, residual value 2000, remaining useful life 2 years.",
+    "inputs": {
+      "opening": "12000",
+      "residual": "2000",
+      "remaining_life": "2",
+      "months": "6"
+    },
+    "expected": {
+      "annual": "5000.00",
+      "depreciation": "2500.00",
+      "closing": "9500.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "N060",
+    "category": "numerical",
+    "method": "revised_estimate",
+    "scenario_family": "revised_estimate_partial",
+    "question": "Compute revised-estimate depreciation for 3 months: carrying amount 12000, residual value 2000, remaining useful life 2 years.",
+    "inputs": {
+      "opening": "12000",
+      "residual": "2000",
+      "remaining_life": "2",
+      "months": "3"
+    },
+    "expected": {
+      "annual": "5000.00",
+      "depreciation": "1250.00",
+      "closing": "10750.00"
+    },
+    "verification": "independent_fraction_oracle",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "B001",
+    "category": "missing_information",
+    "question": "Annual straight-line depreciation: cost 100000, useful life 5 years.",
+    "expected": "clarification",
+    "verification": "explicit_input_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "B002",
+    "category": "missing_information",
+    "question": "Annual depreciation: cost 100000, residual 10000, useful life 5 years.",
+    "expected": "clarification",
+    "verification": "explicit_input_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "B003",
+    "category": "missing_information",
+    "question": "Straight-line depreciation: cost 100000, residual 10000, useful life 5 years.",
+    "expected": "clarification",
+    "verification": "explicit_input_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "B004",
+    "category": "missing_information",
+    "question": "Annual straight-line depreciation after impairment: cost 100000, residual 10000, useful life 5 years.",
+    "expected": "clarification",
+    "verification": "explicit_input_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "B005",
+    "category": "missing_information",
+    "question": "Annual straight-line depreciation: cost 100000, residual 10000, useful life 0 years.",
+    "expected": "clarification",
+    "verification": "explicit_input_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "B006",
+    "category": "missing_information",
+    "question": "Annual reducing-balance depreciation: opening carrying amount 100000, residual 10000.",
+    "expected": "clarification",
+    "verification": "explicit_input_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "B007",
+    "category": "missing_information",
+    "question": "Annual straight-line depreciation: cost 100000, residual 200000, useful life 5 years.",
+    "expected": "clarification",
+    "verification": "explicit_input_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "B008",
+    "category": "missing_information",
+    "question": "Annual straight-line depreciation: cost 100000, cost 200000, residual 10000, useful life 5 years.",
+    "expected": "clarification",
+    "verification": "explicit_input_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "C001",
+    "category": "concept_retrieval",
+    "question": "What does residual value mean?",
+    "evidence": "Residual value is the estimated amount recoverable at the end of an asset's useful life, after expected disposal costs.",
+    "expected_keyword": "residual value",
+    "verification": "original_reference_note; specialist_review_pending",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "C002",
+    "category": "concept_retrieval",
+    "question": "What is the depreciable amount?",
+    "evidence": "Depreciable amount is the asset's cost less its residual value in this simplified example.",
+    "expected_keyword": "depreciable amount",
+    "verification": "original_reference_note; specialist_review_pending",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "C003",
+    "category": "concept_retrieval",
+    "question": "Explain the straight-line method.",
+    "evidence": "The straight-line method allocates the depreciable amount equally across the useful life when estimates are unchanged.",
+    "expected_keyword": "straight-line",
+    "verification": "original_reference_note; specialist_review_pending",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "C004",
+    "category": "concept_retrieval",
+    "question": "Explain reducing-balance depreciation.",
+    "evidence": "Reducing-balance depreciation applies a stated rate to the opening carrying amount, subject to the specified residual floor.",
+    "expected_keyword": "reducing-balance",
+    "verification": "original_reference_note; specialist_review_pending",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "C005",
+    "category": "concept_retrieval",
+    "question": "How do I prorate a charge for months in use?",
+    "evidence": "With an explicitly agreed monthly convention, multiply the unrounded annual charge by months in use divided by twelve.",
+    "expected_keyword": "months in use",
+    "verification": "original_reference_note; specialist_review_pending",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "C006",
+    "category": "concept_retrieval",
+    "question": "What is the opening carrying amount?",
+    "evidence": "The opening carrying amount is the amount recorded for the asset at the start of the period being calculated.",
+    "expected_keyword": "opening carrying amount",
+    "verification": "original_reference_note; specialist_review_pending",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "C007",
+    "category": "concept_retrieval",
+    "question": "How is a revised useful life used in this tool?",
+    "evidence": "The revised useful life tool allocates the supplied current carrying amount less revised residual value over the remaining useful life.",
+    "expected_keyword": "revised useful life",
+    "verification": "original_reference_note; specialist_review_pending",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "C008",
+    "category": "concept_retrieval",
+    "question": "Does arithmetic verify the chosen accounting treatment?",
+    "evidence": "Arithmetic verification checks numerical operations. It does not by itself establish that an accounting treatment is applicable to the facts.",
+    "expected_keyword": "accounting treatment",
+    "verification": "original_reference_note; specialist_review_pending",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "G001",
+    "category": "source_grounding",
+    "variant": "valid",
+    "question": "Use only applicable, verifiable source references.",
+    "verification": "independent_scope_or_citation_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "G002",
+    "category": "source_grounding",
+    "variant": "unknown_id",
+    "question": "Use only applicable, verifiable source references.",
+    "verification": "independent_scope_or_citation_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "G003",
+    "category": "source_grounding",
+    "variant": "wrong_quote",
+    "question": "Use only applicable, verifiable source references.",
+    "verification": "independent_scope_or_citation_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "G004",
+    "category": "source_grounding",
+    "variant": "missing_citation",
+    "question": "Use only applicable, verifiable source references.",
+    "verification": "independent_scope_or_citation_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "G005",
+    "category": "source_grounding",
+    "variant": "matching_attempt",
+    "question": "Use only applicable, verifiable source references.",
+    "verification": "independent_scope_or_citation_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "G006",
+    "category": "source_grounding",
+    "variant": "wrong_attempt",
+    "question": "Use only applicable, verifiable source references.",
+    "verification": "independent_scope_or_citation_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "G007",
+    "category": "source_grounding",
+    "variant": "wrong_subject",
+    "question": "Use only applicable, verifiable source references.",
+    "verification": "independent_scope_or_citation_contract",
+    "license": "CC0-1.0"
+  },
+  {
+    "id": "G008",
+    "category": "source_grounding",
+    "variant": "wrong_year",
+    "question": "Use only applicable, verifiable source references.",
+    "verification": "independent_scope_or_citation_contract",
+    "license": "CC0-1.0"
+  }
+]

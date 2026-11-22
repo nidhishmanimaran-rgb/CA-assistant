@@ -1,115 +1,46 @@
-# CA AI Assistant — Phase 1
+# CA AI Assistant
 
-A local Streamlit study workspace for a progressively built CA tutor. **Phase 1 is
-an interface demo:** it does not call a model, answer arbitrary accounting
-questions, ingest PDFs, retrieve sources, calculate new figures, or train anything.
-The first planned subject is **CA Intermediate Advanced Accounting**, starting with
-**property, plant and equipment / depreciation**. This is an independent project,
-not an official ICAI product or a production-ready tutor.
+A working local educational MVP for Indian CA students, beginning with **CA Intermediate Advanced Accounting / depreciation**. It combines Streamlit, an optional OpenAI model, private PDF retrieval and explicit Decimal calculation tools.
 
-## What works now
+**No key is required for the offline app.** Live model responses need configured credentials and explicit API-spending enablement. This is an independent educational project, not an official ICAI solution service. See [the final project report](docs/FINAL-PROJECT-REPORT.md) for actual verification and remaining blockers.
 
-- CA level, subject, chapter, attempt label, English language and three answer modes.
-- Demo chat with a frozen copy of the study settings on each message.
-- A separately requested, clearly labelled prepared depreciation example.
-- Session history, clear chat, thumbs feedback, JSON chat export and local issue export.
-- A visible, disabled PDF uploader for Phase 3.
-- Native Streamlit theme selection, VS Code debugging and automated tests.
+## Start on Windows
 
-Foundation, Final, other subjects and non-MVP chapters are **UI previews**.
-The course catalogue is not a complete or attempt-verified ICAI syllabus.
-Tamil is planned; the language selector currently supports English only.
-The attempt field is a label, not a verified examination calendar or amendment filter.
-
-## Folder structure and purpose
-
-```text
-ca-ai-assistant/
-├── app.py                         # Streamlit dashboard and widget callbacks
-├── backend/
-│   ├── __init__.py
-│   ├── demo.py                    # Explicit demo responses and fixed example
-│   └── session.py                 # Context, validation, bounded history and export
-├── config/
-│   ├── __init__.py
-│   └── catalog.py                 # Small UI catalogue and limits
-├── knowledge_base/
-│   └── README.md                  # Private-material policy; no documents yet
-├── tests/
-│   ├── test_app.py                # Streamlit interaction tests
-│   └── test_session.py            # Validation, history and honest-demo tests
-├── docs/
-│   ├── phase-1-checklist.md        # Manual acceptance checks
-│   └── phase-2-plan.md             # Next-phase design only
-├── .streamlit/
-│   └── config.toml                # Loopback server, theme and privacy settings
-├── .vscode/
-│   ├── extensions.json            # Extension recommendations
-│   ├── launch.json                # F5 launches Streamlit
-│   └── settings.json              # Virtual environment and test discovery
-├── .env.example                   # Empty future-provider variable names
-├── .gitignore                     # Excludes credentials, documents and local data
-├── pyproject.toml                 # Pytest configuration
-├── requirements.txt               # Pinned Streamlit runtime
-├── requirements-dev.txt           # Runtime plus test runner
-└── README.md
-```
-
-The virtual environment `.venv/` and local Git metadata `.git/` are generated
-during setup and are not source files. Later phases will add actual AI, retrieval,
-document-processing, calculator and evaluation modules when they are implemented.
-
-## VS Code and prerequisites
-
-Use **Python 3.11** for the tested setup and install [VS Code](https://code.visualstudio.com/)
-and [Git for Windows](https://git-scm.com/downloads/win) if missing.
-In VS Code choose **File → Open Folder** and open this `ca-ai-assistant` directory.
-
-Install these Microsoft extensions from the Extensions panel:
-
-| Extension | Identifier | Purpose |
-| --- | --- | --- |
-| Python | `ms-python.python` | Python editing, environments and tests; required for this VS Code workflow |
-| Pylance | `ms-python.vscode-pylance` | Type hints and completion; recommended |
-| Python Debugger | `ms-python.debugpy` | F5 debugging; required to use the supplied launch configuration |
-
-VS Code should offer these workspace recommendations. Git support is built in.
-See the [official Python tutorial](https://code.visualstudio.com/docs/python/python-tutorial).
-
-## Windows setup
-
-Open **Terminal → New Terminal** in VS Code and select PowerShell. From the parent workspace:
+Open this directory in VS Code, then use PowerShell:
 
 ```powershell
 Set-Location 'C:\Users\ADMIN\AI Assistant\ca-ai-assistant'
-py -3.11 --version
+# Only create the environment if it does not already exist:
 py -3.11 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install --upgrade pip
 .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-If the environment is already supplied and working, skip recreating it and
-reinstalling dependencies. A virtual environment keeps this project's packages
-separate from other Python projects.
+Visit **http://localhost:8501**. Stop with **Ctrl+C**. The supplied environment already contains the required packages on this machine, so you can run the last command directly. Calling the environment's Python explicitly avoids PowerShell activation-policy changes.
 
-These commands deliberately call the environment's Python directly, so they work
-even when PowerShell does not allow activation scripts. Optional activation is:
+In VS Code select **Python: Select Interpreter → .venv\Scripts\python.exe**. Install Microsoft **Python**, **Pylance** and **Python Debugger**; the workspace includes recommendations and an F5 Streamlit launch configuration. Details are in the [VS Code Python tutorial](https://code.visualstudio.com/docs/python/python-tutorial).
 
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
+## What works
 
-If activation is blocked, keep using the full Python path; changing your execution
-policy is unnecessary. If `py` is unavailable, use `python -m venv .venv` after
-checking `python --version`.
+- CA level, subject, chapter, examination-attempt and answer-format settings.
+- English and optional model-generated Tamil explanations.
+- Session chat, feedback, context snapshots and JSON downloads.
+- Clearly labelled demo mode and the original prepared answer preview.
+- OpenAI Responses API with conversation context, structured outputs, timeouts, bounded retries and safe errors.
+- Authorized PDF ingestion with page numbers, layout-oriented text extraction, optional OCR, metadata, replacement and deletion.
+- Persistent extracted text and vectors in SQLite; scoped FAISS similarity search.
+- An explicit cosine-search fallback when native FAISS cannot load.
+- OpenAI semantic embeddings when configured, or a labelled offline keyword-vector baseline.
+- Source IDs and exact quotation validation; insufficient-evidence responses.
+- Straight-line, partial-year, reducing-balance and prospective revised-estimate depreciation.
+- API request limits, conservative cost reservations and an optional shared-password access gate.
+- Offline evaluation, opt-in live model evaluation, CI, container configuration and a gated tuning pipeline.
 
-Press **Ctrl+Shift+P → Python: Select Interpreter** and select
-`.venv\Scripts\python.exe`. The workspace includes a default interpreter path.
+The menu is an extensible study catalogue, not a complete verified ICAI syllabus. Other subjects have model/retrieval architecture but no independently validated subject-specific calculation engine. Tax and law answers require applicable uploaded evidence.
 
-### Environment variables
+## Enable real AI
 
-Phase 1 requires **no API key** and does **not load `.env`**. To prepare a local
-template for the next phase, copy it once:
+Copy the template once:
 
 ```powershell
 if (-not (Test-Path -LiteralPath '.env')) {
@@ -117,134 +48,145 @@ if (-not (Test-Path -LiteralPath '.env')) {
 }
 ```
 
-Keep all values blank for now. Real credentials must never be put into
-`.env.example`, frontend code, screenshots, chat exports or Git.
-The current application does not read these variables, even if populated.
+Edit the ignored `.env` locally:
 
-### Dependencies
-
-`requirements.txt` contains:
-
-```text
-streamlit==1.67.0
+```dotenv
+LLM_PROVIDER=openai
+LLM_MODEL=gpt-6.1-terra
+OPENAI_API_KEY=YOUR_PRIVATE_KEY
+ALLOW_PAID_API=true
+EMBEDDING_BACKEND=openai
+DAILY_BUDGET_USD=1
+INPUT_PRICE_PER_MILLION=1
+OUTPUT_PRICE_PER_MILLION=5
+EMBEDDING_PRICE_PER_MILLION=0.02
 ```
 
-`requirements-dev.txt` adds `pytest>=8.3,<10`. We avoid installing AI SDKs,
-vector databases, PDF libraries or OCR tooling before their phases.
-Streamlit 1.67.0 is the selected release according to its
-[official release notes](https://docs.streamlit.io/develop/quick-reference/release-notes/2026).
-The direct runtime dependency is pinned; transitive dependencies are resolved by
-pip. A full lock across deployment targets will be addressed before hosting.
+Replace the key placeholder; never paste the real key into chat or commit it. Restart Streamlit, then enable **provider consent** in the sidebar before sending questions or passages. This allows paid requests and sends the selected content to OpenAI. Keep `EMBEDDING_BACKEND=local` to use the offline retrieval baseline with model-generated answers.
 
-## Run locally
+Configuration precedence is process environment, then Streamlit cloud secrets, then `.env`. A different model requires explicit current input/output prices. The adapter uses the [Responses API](https://developers.openai.com/api/docs/quickstart), structured output and an allowlisted calculation function. Live API correctness has not been verified without credentials.
 
-From this project directory:
+## Solve the changed-value example
+
+In the default Intermediate / Advanced Accounting / depreciation context, ask:
+
+> Annual straight-line depreciation: cost 850000, residual value 50000, useful life 8 years.
+
+The local calculation engine produces **INR 100000.00** and shows its inputs, substitutions and closing carrying amount. For six months, explicitly say **for 6 months**. The **Calculations** tab provides a reliable form for all supported methods.
+
+The parser deliberately requires explicit facts. Missing residual value, method or period leads to clarification. Dates require an agreed day/month convention. Impairment, revaluation, disposal, statutory rates, units-of-production and complex accounting treatments are outside the validated engine. An ambiguous follow-up should supply the complete revised inputs.
+
+Calculations use Decimal with half-up rounding to two decimals. They verify arithmetic under stated assumptions; they do not prove that a method is appropriate to a particular accounting standard.
+
+## Add your knowledge base
+
+1. Choose the level, subject, chapter and **exact examination attempt**.
+2. Open **Study library** and confirm processing rights.
+3. Upload a PDF; enter its title, source edition and publication date.
+4. Enter effective dates and the sidebar year fields for tax/law material.
+5. Use **Process and index PDF**. Review extraction warnings.
+6. Ask a question in the matching study context, optionally requiring source evidence.
+7. Expand **Sources and answer status** to inspect document, chapter, edition, pages and quoted evidence.
+
+Use **Replace** when updating the same document; the old version remains intact if processing fails. **Remove this document** deletes its stored text and vectors. Changing embedding models requires reindexing; vectors from different models are not mixed.
+
+Defaults: 10 MB per file, 150 pages, 20 documents per session, 2 million extracted characters per document and 5,000 matching sections per retrieval. Long questions/solutions can span chunks; extraction preserves text layout where possible but is not a mathematical/table understanding engine.
+
+Original PDF bytes are not retained. Extracted text and vectors are stored in ignored `data/knowledge.sqlite`. Each anonymous Streamlit session has its own workspace ID. A refresh can lose access to that ID even though the server data remains; this is not an account-based durable student library. See [storage and deployment guidance](docs/DEPLOYMENT.md) before multi-user hosting.
+
+For an original, redistributable PDF to try:
 
 ```powershell
-.\.venv\Scripts\python.exe -m streamlit run app.py
+.\.venv\Scripts\python.exe -m scripts.create_sample_pdf
 ```
 
-Open **http://localhost:8501**. Stop the server with **Ctrl+C** in the terminal.
-Alternatively, press **F5** in VS Code and choose **CA AI Assistant: Streamlit**.
-Do not launch this app with the editor's plain “Run Python File” button.
+Upload `data/sample-depreciation.pdf`. Its notes are authored for this project and marked CC0. No ICAI book is bundled.
 
-The server listens on `127.0.0.1` for local development. Theme selection is in
-Streamlit's top-right menu → **Settings → Theme**. The interface uses native widgets
-and a static responsive header; no external assets or fonts are needed.
+For OCR:
 
-## Verify Phase 1
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-ocr.txt
+```
+
+Install the Tesseract executable separately and put it on PATH, then enable the OCR checkbox. The optional OCR adapter is tested with a substitute recognizer; real Tesseract OCR has not been executed here. Verify every extracted figure against the PDF.
+
+## Source and applicability rules
+
+Documents are filtered by workspace, level, subject, chapter and declared attempt **before** ranking. Timeless conceptual notes can span attempts; tax/law notes cannot. Tax/law requires a matching assessment/financial year and effective date.
+
+A source-linked model claim must contain a known source ID and an exact matching quotation. Unsupported references are rejected. This checks citation identity and evidence text, **not semantic entailment**. The model can still misunderstand a valid passage. Uploader-supplied metadata is not automatically verified against ICAI or statutory publications.
+
+Uploaded text is untrusted data, not system instructions. The application never executes student-supplied or model-generated Python.
+
+## Test and evaluate
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip check
 .\.venv\Scripts\python.exe -m pytest
+.\.venv\Scripts\python.exe -m evaluation.evaluate
+.\.venv\Scripts\python.exe -m scripts.check_release
 ```
 
-The tests use [Streamlit AppTest](https://docs.streamlit.io/develop/api-reference/app-testing),
-which runs the app and simulates widget interactions. They check session
-isolation, selector changes, context snapshots, input limits, history bounds,
-exports and the distinction between demo acknowledgements and fixed examples.
-They do **not** measure AI correctness, retrieval quality or numerical-tool accuracy.
+The original 22 Phase 1 tests are retained. The evaluation dataset contains **84 original cases**: 60 numerical, 8 missing-input/scenario cases, 8 concept-retrieval cases and 8 source checks. Numerical expectations come from an independent Fraction implementation, not the production calculator.
 
-Follow [the manual checklist](docs/phase-1-checklist.md) in a real browser as well.
-Passing AppTest does not prove mobile layout, visual styling or browser downloads.
-
-## Git and GitHub
-
-Initialize Git if this project does not already have a repository:
+Offline scores do not measure live-model conceptual reasoning. The concept cases test retrieval against original notes; specialist review remains necessary. The live evaluator is opt-in:
 
 ```powershell
-git init -b main
-git status --short
-git check-ignore .env .streamlit/secrets.toml uploads/chapter.pdf knowledge_base/book.pdf
+.\.venv\Scripts\python.exe -m evaluation.model_run --allow-paid-api --limit 5 --output data/evaluation/model-baseline.json
 ```
 
-Review the files before staging. Then:
+This requires enabled credentials and incurs API usage. It reports automatic tool/citation contracts and saves responses for human review. Compare results only for the same case set and evaluation mode:
 
 ```powershell
-git add .
-git diff --cached --stat
-git commit -m "Build Phase 1 CA AI Assistant workspace"
+.\.venv\Scripts\python.exe -m evaluation.compare data/evaluation/model-baseline.json data/evaluation/model-candidate.json
 ```
 
-If Git asks for your identity, set your real name and a verified GitHub email (or
-GitHub-provided private email) using `git config user.name` and `git config user.email`.
-
-Create an **empty private repository** named `ca-ai-assistant` using
-[GitHub's new repository page](https://github.com/new). Do not initialize it with a
-README, license or .gitignore because those would create a separate first commit.
-Then replace `YOUR_USERNAME` in these commands:
+The Windows browser smoke script uses an isolated headless Chrome profile and an original sample PDF:
 
 ```powershell
-git remote add origin https://github.com/YOUR_USERNAME/ca-ai-assistant.git
-git push -u origin main
+.\.venv\Scripts\python.exe -m scripts.browser_smoke
 ```
 
-Use Git Credential Manager's browser sign-in if prompted; never paste a token into
-a remote URL. Open the repository and confirm the source is present and
-`.env`, `.venv`, PDFs and student exports are absent. Only add a remote once;
-use `git remote -v` to inspect an existing remote. Follow GitHub's
-[existing-project guide](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github).
+It requires Chrome at the path in the script. It closes its test server and browser when finished.
 
-A GitHub remote is not created automatically by this local scaffold. Account sign-in
-and repository creation remain user steps. Cloud deployment belongs to Phase 5.
+## Project map
 
-## Data and security boundaries
+| Path | Purpose |
+| --- | --- |
+| `app.py`, `ui/` | Dashboard, library, workbench, runtime and optional access gate |
+| `config/catalog.py`, `config/settings.py` | Study navigation and validated server configuration |
+| `backend/ai_engine.py`, `providers.py` | Reasoning workflow, bounded conversation and provider adapter |
+| `backend/calculator.py`, `solver.py` | Decimal procedures and conservative question recognition |
+| `backend/document_processor.py` | Page-aware PDF extraction, chunking and optional OCR |
+| `backend/embeddings.py`, `retrieval.py` | Embedding modes, private storage and vector search |
+| `backend/citations.py`, `syllabus_versions.py` | Evidence validation and applicability filters |
+| `backend/session.py`, `usage.py` | Session records, exports, API limits and cost reservations |
+| `evaluation/` | Original cases, independent oracle and evaluation/comparison commands |
+| `training/` | Reviewed-data preparation and optional Vertex tuning/inference scripts |
+| `tests/` | Regression, integration, security and pipeline tests |
+| `scripts/` | Health, release, browser and sample-material helpers |
+| `.github/workflows/tests.yml` | Offline Linux CI; requires native FAISS there |
+| `Dockerfile`, `compose.yaml` | Non-root container and local persistent-volume template |
+| `.env.example`, `.streamlit/secrets.example.toml` | Blank/default configuration, never real credentials |
+| `docs/DEPLOYMENT.md`, `docs/TRAINING.md` | Deployment and model-customization instructions |
+| `docs/FINAL-PROJECT-REPORT.md` | Actual status, results, limitations and remaining approvals |
 
-- Chat, feedback and issue reports live only in the current Streamlit session.
-  There are no accounts, database or durable chat history.
-- The last 20 complete exchanges are retained; older messages and their feedback
-  are dropped. Download before refreshing or closing the browser.
-- Downloads are explicit local exports and can contain the questions you entered.
-  No report or feedback is sent to a third party.
-- Student questions are rendered as plain text. Only static application CSS/HTML
-  uses `unsafe_allow_html`; documents are not parsed.
-- PDF upload is disabled until a proper ingestion pipeline exists.
-- Usage telemetry is disabled. CORS and XSRF protection remain enabled.
-- Input length and history limits bound a session, but they are **not** production
-  authentication, abuse prevention, rate limiting or multi-user cost controls.
-- The app makes no model requests, so Phase 1 incurs no LLM API usage charges.
+## GitHub, hosting and model customization
+
+Follow [deployment instructions](docs/DEPLOYMENT.md) to create a private GitHub repository, push, configure cloud secrets and deploy. No remote or public URL is claimed until a real deployment succeeds.
+
+Follow [training instructions](docs/TRAINING.md) only after evaluating the RAG baseline. RAG retrieves material; fine-tuning changes model behavior from examples; continued pretraining consumes additional domain text; training from scratch creates a new foundation model. Only the optional fine-tuning preparation/submission workflow is implemented.
 
 ## Troubleshooting
 
-| Symptom | What to do |
+| Issue | Action |
 | --- | --- |
-| `streamlit` or `pytest` not found | Use `.\.venv\Scripts\python.exe -m ...`, and install `requirements-dev.txt` with that same interpreter. |
-| `py -3.11` cannot find Python | Install Python 3.11, reopen the terminal, or check `py --list`. |
-| Port 8501 is busy | Stop the other process or run `... -m streamlit run app.py --server.port 8502` and open port 8502. |
-| Page does not open automatically | Headless mode is enabled; manually visit the printed localhost URL. |
-| VS Code imports are underlined | Select the project's `.venv` interpreter, not the system Python. |
-| Package download fails | Check connectivity/proxy settings; keep TLS verification enabled and retry the install. |
-| Chat disappears after reload | This phase has session-only history; download it first. |
-| Chat does not solve my question | Expected: the model is added in Phase 2. |
-| PDF uploader is greyed out | Expected: document validation and retrieval arrive in Phase 3. |
-| Theme menu is missing | Run from this directory with the supplied config; don't hide Streamlit's toolbar. |
-
-## What Phase 2 will change
-
-See [the Phase 2 design](docs/phase-2-plan.md). The interface already records a
-structured study context. A server-side AI service will consume that context and
-the question and return a labelled response. Phase 2 will require choosing a
-provider/model, adding the SDK and server-side secrets, implementing bounded
-requests and errors, and testing with mocked responses before live calls.
-
-**Stop here after Phase 1. Proceed to Phase 2 only after the user's confirmation.**
+| No AI reply | Check provider, key, `ALLOW_PAID_API=true` and sidebar consent. |
+| API budget reached | Inspect reservations and actual provider billing; adjust only within your authorized budget. |
+| No applicable sources | Match chapter/attempt/year/date; reindex after changing embedding models. |
+| Upload is disabled | Confirm processing rights; semantic indexing also needs provider consent. |
+| FAISS DLL blocked on Windows | The app uses its labelled cosine fallback. Do not disable Windows policy; validate native FAISS on the deployment host. |
+| Tables/formulas extract badly | Review the PDF, use optional OCR where appropriate, and correct authorized source material. |
+| Session disappears | History and anonymous identity are session-local; export before leaving. |
+| Port is busy | Add `--server.port 8502` and open that port. |
+| Hosted app refuses to start | Configure a strong `APP_PASSWORD` when `REQUIRE_PASSWORD=true`. |

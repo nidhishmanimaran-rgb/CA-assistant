@@ -16,6 +16,9 @@ class StudyContext:
     attempt: str
     language: str
     answer_format: str
+    assessment_year: str = ""
+    fiscal_year: str = ""
+    as_of: str = ""
 
 
 def timestamp() -> str:
@@ -63,8 +66,8 @@ def export_chat(messages: list[dict], feedback: dict) -> str:
         {
             "schema_version": 1,
             "app": "CA AI Assistant",
-            "phase": 1,
-            "mode": "interface_demo",
+            "phase": 8 if any(m.get("kind") not in ("question", "demo", "prepared_example") for m in messages) else 1,
+            "mode": "tutor" if any(m.get("kind") not in ("question", "demo", "prepared_example") for m in messages) else "interface_demo",
             "exported_at": timestamp(),
             "messages": messages,
             "feedback": {

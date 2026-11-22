@@ -1,0 +1,12 @@
+{
+  "id": "YOUR_UNIQUE_ID",
+  "question": "Your independently written CA question",
+  "answer": "A reviewed solution with assumptions and working notes",
+  "scenario_family": "Shared ID for all similar or changed-value variants",
+  "attempt": "Applicable examination attempt",
+  "answer_format": "Detailed solution",
+  "license": "owned",
+  "rights_confirmed": false,
+  "human_reviewed": false,
+  "reviewer": ""
+}

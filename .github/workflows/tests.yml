@@ -1,0 +1,26 @@
+name: CA Assistant checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      LLM_PROVIDER: demo
+      ALLOW_PAID_API: "false"
+      EMBEDDING_BACKEND: local
+      REQUIRE_PASSWORD: "false"
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python -m pip check
+      - run: python -m pytest --junitxml=data/test-results.xml
+      - run: python -m evaluation.evaluate
+      - run: python -m scripts.check_release --require-faiss

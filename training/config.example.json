@@ -1,0 +1,12 @@
+{
+  "project_id": "",
+  "location": "us-central1",
+  "model": "gemini-2.5-flash",
+  "training_uri": "",
+  "validation_uri": "",
+  "epoch_count": 2,
+  "adapter_size": 4,
+  "estimated_training_tokens": 0,
+  "training_price_per_million": 0,
+  "dataset_reviewed": false
+}

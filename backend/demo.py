@@ -11,7 +11,7 @@ SAMPLE_QUESTION = (
 
 NOTICE = (
     "**Interface demo — no AI model is connected.**\n\n"
-    "Your question is saved in this browser session. Phase 2 will connect the "
+    "Your question is saved in this browser session. Configure the provider to enable the "
     "AI service. This response does not solve or verify your question."
 )
 
@@ -39,8 +39,8 @@ def build_demo_response(question: str, context: StudyContext) -> str:
             "### Given information\n\n"
             "Your question is recorded above; facts have not been extracted.\n\n"
             "### Principle and working notes\n\n"
-            "These will be produced by the connected tutor, with a separate "
-            "calculation tool added in Phase 4.\n\n"
+            "A configured tutor can explain the principle. Use the "
+            "calculation workbench for supported depreciation procedures.\n\n"
             "### Final result\n\n"
             "No result has been calculated."
         )

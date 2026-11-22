@@ -1,4 +1,4 @@
-"""Phase 1: local Streamlit workspace. Run with python -m streamlit run app.py."""
+"""CA tutor: local Streamlit workspace. Run with python -m streamlit run app.py."""
 
 import json
 
@@ -6,6 +6,11 @@ import streamlit as st
 
 from backend.demo import SAMPLE_QUESTION, build_demo_response, prepared_example
 from backend.session import StudyContext, append_exchange, export_chat, timestamp
+from backend.ai_engine import TutorService
+from backend.errors import AppError
+from ui.runtime import settings as load_app_settings, access_gate, runtime, ledger
+from ui.library import render_library
+from ui.calculations import render_calculator
 from config.catalog import (
     ANSWER_FORMATS,
     APP_TITLE,
@@ -87,22 +92,27 @@ def record_feedback(message_id: str) -> None:
 
 
 def add_turn(question: str, context: StudyContext, *, example: bool = False) -> None:
-    answer = (
-        prepared_example(context.answer_format)
-        if example
-        else build_demo_response(question, context)
-    )
+    metadata = {}
+    if example:
+        answer, kind = prepared_example(context.answer_format), "prepared_example"
+    else:
+        configuration = load_app_settings()
+        provider, knowledge = runtime(configuration)
+        if configuration.api_enabled and not st.session_state.get("provider_consent", False):
+            raise AppError("Enable provider consent in the sidebar before sending questions or excerpts.", "consent")
+        result = TutorService(configuration, knowledge, provider).ask(
+            question, context, st.session_state.messages,
+            require_sources=st.session_state.get("require_sources", False),
+        )
+        answer, kind = result.content, result.kind
+        metadata = {"sources": result.sources, "status": result.status, "calculation": result.calculation}
     st.session_state.messages = append_exchange(
-        st.session_state.messages,
-        question,
-        answer,
-        context,
-        kind="prepared_example" if example else "demo",
+        st.session_state.messages, question, answer, context, kind=kind,
     )
+    st.session_state.messages[-1].update(metadata)
     retained_ids = {message["id"] for message in st.session_state.messages}
     st.session_state.feedback = {
-        key: value for key, value in st.session_state.feedback.items()
-        if key in retained_ids
+        key: value for key, value in st.session_state.feedback.items() if key in retained_ids
     }
 
 
@@ -130,9 +140,15 @@ def sidebar() -> StudyContext:
             key="attempt",
             help="A study label only. Syllabus and amendment applicability are not verified yet.",
         ).strip()
-        language = st.selectbox("Explanation language", ("English",), key="language")
-        st.caption("Tamil explanations are planned for a later phase.")
+        language = st.selectbox("Explanation language", ("English", "Tamil"), key="language")
+        st.caption("Tamil narrative explanations require a configured AI provider; calculation notes remain in English.")
         answer_format = st.selectbox("Answer format", ANSWER_FORMATS, index=1, key="answer_format")
+        with st.expander("Applicability and privacy"):
+            assessment_year = st.text_input("Assessment year", key="assessment_year", max_chars=32)
+            fiscal_year = st.text_input("Financial year", key="fiscal_year", max_chars=32)
+            as_of = st.text_input("Effective date (YYYY-MM-DD)", key="as_of", max_chars=10)
+            st.checkbox("Require applicable document evidence", key="require_sources")
+            st.checkbox("Allow my questions and retrieved excerpts to be sent to the configured AI provider", key="provider_consent")
         st.divider()
         st.button(
             "Clear chat",
@@ -147,9 +163,10 @@ def sidebar() -> StudyContext:
             "Refreshing, closing the tab, or restarting the server may reset it. "
             "Download it before leaving."
         )
-        st.caption("Phase 1 · Local interface demo")
+        st.caption("Local workspace · AI and knowledge tools")
     return StudyContext(
-        level, subject, chapter, attempt or "Not specified", language, answer_format
+        level, subject, chapter, attempt or "Not specified", language, answer_format,
+        assessment_year.strip(), fiscal_year.strip(), as_of.strip(),
     )
 
 
@@ -161,11 +178,17 @@ def render_message(message: dict) -> None:
         else:
             st.markdown(message["content"])
             with st.expander("Sources and answer status"):
-                if message["kind"] == "prepared_example":
-                    st.write("Original presentation example. No document was retrieved or cited.")
-                else:
-                    st.write("No sources retrieved. No AI answer or numerical result generated.")
-                st.caption("Document ingestion and page citations arrive in Phase 3.")
+                st.text("Status: " + message.get("status", message["kind"]))
+                sources = message.get("sources", [])
+                for source in sources:
+                    meta = source["metadata"]
+                    st.caption("Search engine: " + source.get("search_engine", "faiss"))
+                    st.text(f"[{source['source_id']}] {meta['title']} | {meta['chapter']}\n"
+                            f"Pages {source['page_start']}–{source['page_end']} | version {meta['version']} | attempt {meta['attempt']}")
+                    st.code(source.get("evidence_quote", source["text"])[:1600], language=None)
+                if not sources:
+                    st.write("No source document is cited for this reply.")
+                st.caption("Source checks verify IDs and quoted passages, not the correctness of every interpretation. Calculations verify arithmetic for stated inputs.")
             st.feedback(
                 "thumbs",
                 key=f"vote_{message['id']}",
@@ -215,7 +238,7 @@ def tutor_tab(context: StudyContext) -> None:
         st.download_button(
             "Download chat",
             data=export_chat(st.session_state.messages, st.session_state.feedback),
-            file_name="ca-chat-phase1.json",
+            file_name="ca-chat-session.json",
             mime="application/json",
             disabled=not st.session_state.messages,
             icon=":material/download:",
@@ -226,11 +249,11 @@ def tutor_tab(context: StudyContext) -> None:
 
     with main:
         st.subheader("A little clarity, one question at a time")
-        st.info(
-            "Interface demo: messages receive a prewritten acknowledgement. "
-            "AI answers begin in Phase 2.",
-            icon=":material/info:",
-        )
+        configuration = load_app_settings()
+        if configuration.api_enabled:
+            st.info("AI enabled. Replies without sources are model explanations, not verified textbook answers.")
+        else:
+            st.info("Demo mode: no AI model is connected. Validated depreciation calculations and local document search still work.")
         if not st.session_state.messages:
             with st.container(border=True):
                 st.markdown("#### Start with the question on your mind")
@@ -253,50 +276,33 @@ def tutor_tab(context: StudyContext) -> None:
         if question is not None:
             try:
                 add_turn(question, context)
-            except ValueError as error:
+            except (ValueError, AppError) as error:
                 st.error(str(error))
             else:
                 st.rerun()
 
 
-def library_tab() -> None:
-    st.subheader("A home for your study material")
-    st.write(
-        "Page-aware PDF extraction, authorized-material checks and searchable "
-        "references will be built in Phase 3."
-    )
-    st.file_uploader(
-        "Upload a chapter PDF",
-        type=["pdf"],
-        disabled=True,
-        help="Uploads are disabled until validation and document processing are implemented.",
-        key="future_pdf",
-    )
-    st.info("No documents have been uploaded or indexed.")
-    st.markdown(
-        "**Planned document details:** title, CA level, subject, chapter, page, "
-        "publication date, source version and applicable examination attempt."
-    )
-    st.caption("Indexing a PDF supports retrieval; it does not train the underlying model.")
+def library_tab(context, configuration, knowledge) -> None:
+    render_library(context, configuration, knowledge)
 
 
 def guide_tab() -> None:
     st.subheader("Your project, one phase at a time")
     st.write(
-        "This first phase establishes the interface and local development setup. "
+        "The workspace includes AI configuration, private PDF retrieval and validated depreciation tools. "
         "The course menu is a starter catalogue, not a verified ICAI syllabus."
     )
     st.markdown(
         "| Phase | Status | Includes |\n"
         "| --- | --- | --- |\n"
-        "| 1 · Workspace | Current | Settings, demo chat, history and exports |\n"
-        "| 2 · AI connection | Next | Server-side provider adapter and error handling |\n"
-        "| 3 · Knowledge base | Planned | PDF ingestion, retrieval and citations |\n"
-        "| 4 · Reliable calculations | Planned | Decimal tools and numerical tests |\n"
-        "| 5 · Deployment | Planned | Cloud secrets, access and hosting |\n"
-        "| 6 · Evaluation | Planned | At least 50 original questions and quality scores |\n"
-        "| 7 · Optional fine-tuning | Conditional | Only if measured improvements justify it |\n"
-        "| 8 · Expansion | Planned | More subjects, accounts and production operations |"
+        "| 1 · Workspace | Implemented | Settings, demo chat, history and exports |\n"
+        "| 2 · AI connection | Configuration required | Server-side provider adapter and error handling |\n"
+        "| 3 · Knowledge base | Implemented | PDF ingestion, retrieval and citations |\n"
+        "| 4 · Reliable calculations | Depreciation MVP | Decimal tools and numerical tests |\n"
+        "| 5 · Deployment | Prepared; credentials required | Cloud secrets, access and hosting |\n"
+        "| 6 · Evaluation | Local evaluation suite | At least 50 original questions and quality scores |\n"
+        "| 7 · Optional fine-tuning | Pipeline only | Only if measured improvements justify it |\n"
+        "| 8 · Expansion | Foundation controls | More subjects, accounts and production operations |"
     )
     st.caption("Change appearance using Streamlit's top-right menu → Settings → Theme.")
     with st.expander("Report an interface issue"):
@@ -329,6 +335,13 @@ def guide_tab() -> None:
 
 
 def main() -> None:
+    try:
+        configuration = load_app_settings()
+        access_gate(configuration)
+        provider, knowledge = runtime(configuration)
+    except AppError as error:
+        st.error(str(error))
+        st.stop()
     initialize_session()
     context = sidebar()
     st.markdown(
@@ -339,16 +352,21 @@ def main() -> None:
         unsafe_allow_html=True,
     )
     status, history, focus = st.columns(3)
-    status.metric("Workspace", "Phase 1")
+    status.metric("Workspace", "CA tutor")
     history.metric("Questions in session", len(st.session_state.messages) // 2)
-    focus.metric("AI connection", "Not connected")
-    tutor, library, guide = st.tabs(["Study chat", "Study library", "Project guide"])
+    focus.metric("AI connection", "Configured" if configuration.api_enabled else "Not connected")
+    tutor, library, calculator_tab, guide = st.tabs(["Study chat", "Study library", "Calculations", "Project guide"])
     with tutor:
         tutor_tab(context)
     with library:
-        library_tab()
+        library_tab(context, configuration, knowledge)
+    with calculator_tab:
+        render_calculator(context)
     with guide:
         guide_tab()
+        with st.expander("Server API usage"):
+            st.json(ledger().snapshot())
+            st.caption("Conservative reservations include retry allowance; these are process-local estimates, not provider billing totals.")
     st.divider()
     st.caption("CA AI Assistant · Independent educational project · Not affiliated with ICAI")
 

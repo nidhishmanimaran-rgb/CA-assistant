@@ -35,3 +35,7 @@ ca-issue-*.json
 .DS_Store
 Thumbs.db
 *.log
+
+# Local tuning configuration and exported calculations
+training/*.local.json
+ca-calculation*.json
