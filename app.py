@@ -12,6 +12,7 @@ from ui.runtime import settings as load_app_settings, access_gate, runtime, ledg
 from ui.library import render_library
 from ui.calculations import render_calculator
 from ui.daily_practice import render_daily_practice
+from ui.dataset_status import render_dataset_status
 from config.catalog import (
     ANSWER_FORMATS,
     APP_TITLE,
@@ -357,7 +358,7 @@ def main() -> None:
     status.metric("Workspace", "CA tutor")
     history.metric("Questions in session", len(st.session_state.messages) // 2)
     focus.metric("AI connection", "Configured" if configuration.api_enabled else "Not connected")
-    practice, tutor, library, calculator_tab, guide = st.tabs(["Daily 20 marks", "Study chat", "Study library", "Calculations", "Project guide"])
+    practice, tutor, library, calculator_tab, dataset_tab, guide = st.tabs(["Daily 20 marks", "Study chat", "Study library", "Calculations", "Datasets", "Project guide"])
     with practice:
         render_daily_practice()
     with tutor:
@@ -366,6 +367,8 @@ def main() -> None:
         library_tab(context, configuration, knowledge)
     with calculator_tab:
         render_calculator(context)
+    with dataset_tab:
+        render_dataset_status()
     with guide:
         guide_tab()
         with st.expander("Server API usage"):
