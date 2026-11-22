@@ -54,7 +54,7 @@ SOURCES = (
     ),
     DatasetSource(
         "indfin", "IndFin-Bench", "evaluation_only", "noncommercial",
-        "CC BY-NC 4.0; noncommercial use only",
+        "CC BY-NC 4.0 plus explicit prohibition on model training and synthetic data generation",
         "https://huggingface.co/datasets/cofacto/IndFin-Bench",
         "Not licensed for unrestricted commercial use."
     ),
@@ -148,14 +148,41 @@ def parse_tatqa(data: list[dict], limit: int = 200) -> list[dict]:
 
 
 def parse_hub(data: Any, source: DatasetSource, limit: int = 200) -> list[dict]:
+    """Normalize multiple benchmark schemas for evaluation ONLY."""
     rows = []
     for item in data:
         if not isinstance(item, dict):
             continue
-        question = item.get("question") or item.get("query") or item.get("problem")
-        answer = item.get("answer") or item.get("response") or item.get("ground_truth")
-        row = _record(source, item.get("id", len(rows)), question, answer,
-                      item.get("context") or item.get("text") or "")
+        if source.key == "financemath":
+            question = item.get("question")
+            answer = item.get("ground_truth")
+            context = item.get("tables") or []
+            derivation = item.get("python_solution") or ""
+            identifier = item.get("question_id", len(rows))
+        elif source.key == "bhasha":
+            question = item.get("question")
+            answer = item.get("correct_answer")
+            if answer is None:
+                answer = item.get("answer")
+            options = {letter: item.get("option_" + letter.lower())
+                       for letter in "ABCD" if item.get("option_" + letter.lower())}
+            context = {"options": options, "topic": item.get("topic"),
+                       "domain": item.get("subject_domain")}
+            derivation = ""
+            identifier = item.get("id", len(rows))
+        elif source.key == "indfin":
+            question = item.get("Question")
+            answer = item.get("Atomic_Fact")
+            context = item.get("Complexity_Category") or ""
+            derivation = ""
+            identifier = item.get("Question_Num", len(rows))
+        else:
+            question = item.get("question") or item.get("query") or item.get("problem")
+            answer = item.get("answer") or item.get("response")
+            context = item.get("context") or item.get("text") or ""
+            derivation = ""
+            identifier = item.get("id", len(rows))
+        row = _record(source, identifier, question, answer, context, derivation)
         if row:
             rows.append(row)
         if len(rows) >= limit:
@@ -178,17 +205,20 @@ def _load_hub(key: str, token: str | None, limit: int) -> list[dict]:
     dataset_ids = {
         "financemath": "yale-nlp/FinanceMath",
         "bhasha": "bharatgenai/BhashaBench-Finance",
-        "indfin": "cofacto/IndFin-Bench",
+        "indfin": "Cofacto/IndFin-Bench",
     }
     kwargs = {"token": token} if token else {}
     if key == "bhasha":
         kwargs["data_dir"] = "English"
     dataset = load_dataset(dataset_ids[key], **kwargs)
-    # Only load designated evaluation splits. Some upstream schemas/configs
-    # may not offer them; fail closed instead of importing training data.
-    split = next((name for name in ("test", "validation", "dev") if name in dataset), None)
+    if key == "indfin":
+        # Upstream names its *sole evaluation benchmark* split "train".
+        # Do not EVER use this split for fine-tuning or synthetic data.
+        split = "train" if "train" in dataset else None
+    else:
+        split = next((name for name in ("test", "validation", "dev") if name in dataset), None)
     if not split:
-        raise ValueError("No dedicated evaluation split is available")
+        raise ValueError("An expected benchmark split is unavailable")
     return parse_hub(dataset[split], SOURCE_MAP[key], limit)
 
 
@@ -220,13 +250,21 @@ def integrate(output: Path, *, limit: int = 200,
     if set(include) - SOURCE_MAP.keys():
         raise ValueError("Unknown source")
     output.mkdir(parents=True, exist_ok=True)
+    previous = {}
+    manifest_path = output / "manifest.json"
+    if manifest_path.exists():
+        try:
+            old = json.loads(manifest_path.read_text(encoding="utf-8"))
+            previous = {x["source"]: x for x in old.get("sources", []) if x.get("source") in SOURCE_MAP}
+        except (OSError, ValueError, TypeError, KeyError):
+            previous = {}
     summaries = []
     for key in include:
         source = SOURCE_MAP[key]
         rows: list[dict] = []
         status, note = "registered", "Metadata only. Use --download to stage locally."
         if download:
-            if key == "bhasha" and not hf_token:
+            if key in ("bhasha", "financemath") and not hf_token:
                 status, note = "access_required", "Gated dataset: accept conditions and supply HF_TOKEN privately"
             elif key == "indfin" and not allow_noncommercial:
                 status, note = "restricted", "Opt-in to noncommercial benchmark use is required"
@@ -258,6 +296,11 @@ def integrate(output: Path, *, limit: int = 200,
             "status": status, "notes": note, "records": len(rows),
             "subject_distribution": dict(Counter(row["subject"] for row in rows)),
         })
+    # Preserve earlier successful FinQA/TAT-QA records and statuses when
+    # staging only the three extra sources. Never delete prior data files.
+    combined = dict(previous)
+    combined.update({x["source"]: x for x in summaries})
+    summaries = [combined[key] for key in SOURCE_MAP if key in combined]
     report = {"schema": 1, "model_trained": False, "training_ready": False, "sources": summaries}
     (output / "manifest.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     (output / "public_manifest.json").write_text(
