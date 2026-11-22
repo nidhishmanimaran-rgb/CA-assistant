@@ -48,3 +48,33 @@ def test_default_metadata_only_and_public_redaction(tmp_path):
     assert "license" not in saved["sources"][0]
     assert saved == public_manifest(report)
     assert not saved["training_ready"]
+
+
+def test_benchmark_specific_formats():
+    from training.unified_datasets import SOURCE_MAP, parse_hub
+    math = parse_hub([
+        {"question_id": "fin-1", "question": "Calculate NPV.",
+         "ground_truth": 0, "tables": [["Year", "CF"]], "python_solution": "print(0)"}
+    ], SOURCE_MAP["financemath"])
+    assert len(math) == 1
+    assert math[0]["answer"] == "0"
+    assert math[0]["role"] == "evaluation_only"
+    bhasha = parse_hub([
+        {"id": "bh-1", "question": "What is GST?",
+         "correct_answer": "A", "option_a": "A tax", "option_b": "A currency"}
+    ], SOURCE_MAP["bhasha"])
+    assert len(bhasha) == 1
+    indfin = parse_hub([
+        {"Question_Num": 1, "Question": "What was revenue?",
+         "Atomic_Fact": "Rs 10 lakh", "Complexity_Category": "Easy"}
+    ], SOURCE_MAP["indfin"])
+    assert len(indfin) == 1
+
+
+def test_previous_sources_are_preserved(tmp_path):
+    output = tmp_path / "data"
+    integrate(output, include=("finqa", "tatqa"))
+    result = integrate(output, include=("financemath",))
+    assert {entry["source"] for entry in result["sources"]} == {
+        "finqa", "tatqa", "financemath"
+    }
